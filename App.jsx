@@ -64,7 +64,7 @@ const App = () => {
         <View style={styles.container2}>
           <View style={styles.arrowContainer}>
             <TouchableOpacity onPress={goToPreviousImage}>
-              <Text style={styles.arrowText}>{"⬸"}</Text>
+              <Text style={styles.arrowText}>{"⤎"}</Text>
             </TouchableOpacity>
             <View style={styles.infoContainer}>
               <Text style={styles.imageTitle}>{currentImage.title}</Text>
@@ -73,13 +73,15 @@ const App = () => {
               </Text>
             </View>
             <TouchableOpacity onPress={goToNextImage}>
-              <Text style={styles.arrowText}>{"⤑"}</Text>
+              <Text style={styles.arrowText}>{"⤏"}</Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
       <Tab.Navigator
         screenOptions={({ route }) => ({
+          tabBarActiveTintColor: "#006400", // Color de ícono activo
+          tabBarInactiveTintColor: "#7a7a7a", // Color de ícono inactivo
           tabBarIcon: ({ color, size }) => {
             let iconName;
             if (route.name === "Ciudades") {
@@ -109,7 +111,7 @@ const App = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 0.8,
     backgroundColor: "transparent",
     justifyContent: "center",
     alignItems: "center",
@@ -132,7 +134,7 @@ const styles = StyleSheet.create({
   },
   arrowContainer: {
     position: "absolute",
-    top: -70,
+    top: 30,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
