@@ -1,64 +1,28 @@
 import React, { useState } from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
-import DescripcionAve from '../Screen/DescripcionAve';
+import DescripcionAve from '../Screen/DescripcionAve'; // Importamos el componente de DescripcionAve
 
 const SeccionAves = () => {
-  const navigation = useNavigation();
-
-  const [aveSeleccionada, setAveSeleccionada] = useState(null);
+  const [aveSeleccionada, setAveSeleccionada] = useState(null); // Estado para almacenar el ave seleccionada
 
   const avesData = [
-    { 
-      id: '1', 
-      nombre: 'Loro', 
-      foto: 'https://via.placeholder.com/150', 
-      nombreCientifico: 'Psittacus Psittacus', 
-      nombreComercial: 'Lorito feliz', 
-      peso: '400 g', 
-      edadMaxima: '50 años', 
-      lugaresVistos: 'Bosques tropicales', 
-      descripcion: 'El loro es un ave de colores vivos y plumaje muy llamativo. Suele imitar sonidos y palabras.' 
-    },
-    { 
-      id: '2', 
-      nombre: 'Pájaro Carpintero', 
-      foto: 'https://via.placeholder.com/150', 
-      nombreCientifico: 'Picidae Carpinterius', 
-      nombreComercial: 'Carpinterito', 
-      peso: '200 g', 
-      edadMaxima: '10 años', 
-      lugaresVistos: 'Bosques templados', 
-      descripcion: 'El pájaro carpintero es conocido por su habilidad para picar madera y buscar insectos.' 
-    },
-    { 
-      id: '3', 
-      nombre: 'Aguilucho', 
-      foto: 'https://via.placeholder.com/150', 
-      nombreCientifico: 'Buteo Buteo', 
-      nombreComercial: 'Aguilucho andino', 
-      peso: '1 kg', 
-      edadMaxima: '25 años', 
-      lugaresVistos: 'Montañas', 
-      descripcion: 'El aguilucho es un ave rapaz que se alimenta principalmente de pequeños mamíferos y aves.' 
-    },
-    // Agrega más aves aquí con los campos solicitados
+    { id: '1', nombre: 'No', descripcion: 'Descripción de No' },
+    { id: '7', nombre: 'Si', descripcion: 'Descripción de Si' },
+    { id: '8', nombre: 'Eyy', descripcion: 'Descripción de Eyy' },
+    { id: '2', nombre: 'Gorrion', descripcion: 'Descripción de Gorrion' },
+    { id: '3', nombre: 'Colibrí', descripcion: 'Descripción de Colibrí' },
+    { id: '4', nombre: 'Colibrí', descripcion: 'Descripción de Colibrí' },
+    { id: '5', nombre: 'Colibrí', descripcion: 'Descripción de Colibrí' },
+    { id: '6', nombre: 'Colibrí', descripcion: 'Descripción de Colibrí' },
   ];
 
-  const seleccionarAve = (ave) => {
-    setAveSeleccionada(ave);
-    navigation.navigate("DescripcionAve", { ave: ave });
-  };
-
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => seleccionarAve(item)}>
+    console.log("Antes de TouchableOpacity"),
+    <TouchableOpacity onPress={() => setAveSeleccionada(item)}> 
       <View style={styles.item}>
         <MaterialCommunityIcons name="bird" size={24} color="#000" />
-        <View style={styles.itemTextContainer}>
-          <Text style={styles.itemText}>{item.nombre}</Text>
-          <Text style={styles.itemSubText}>{item.nombreCientifico}</Text>
-        </View>
+        <Text style={styles.itemText}>{item.nombre}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -99,17 +63,8 @@ const styles = StyleSheet.create({
     padding: 20,
     marginBottom: 10,
   },
-  itemTextContainer: {
-    marginLeft: 10,
-  },
   itemText: {
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-  itemSubText: {
-    fontSize: 12,
-    fontStyle: 'italic',
-    color: 'gray',
+    marginLeft: 10, 
   },
 });
 

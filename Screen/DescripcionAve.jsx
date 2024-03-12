@@ -1,17 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import fotoLoro from '../assets/paracho.png'; // Importa la imagen de manera adecuada
+import { View, Text, StyleSheet, Image } from 'react-native';
 
-const DescripcionAve = ({ navigation, id, foto, nombreCientifico, nombreComercial, peso, edadMaxima, lugaresVistos, descripcion }) => {
-  console.log("ESTO RECIBE DESCPCIONAVE",id, foto, nombreCientifico, nombreComercial, peso, edadMaxima, lugaresVistos, descripcion);
-
-  const volverAtras = () => {
-    navigation.goBack(); // Función para volver a la pantalla anterior
-  };
-
+const DescripcionAve = ({ foto, nombreCientifico, nombreComercial, peso, edadMaxima, lugaresVistos, descripcion }) => {
   return (
     <View style={styles.container}>
-      <Image source={fotoLoro} style={styles.image} />
+      <Image source={foto} style={styles.image} />
       <Text style={styles.label}>Nombre Científico:</Text>
       <Text style={styles.text}>{nombreCientifico}</Text>
       <Text style={styles.label}>Nombre Comercial:</Text>
@@ -22,9 +15,6 @@ const DescripcionAve = ({ navigation, id, foto, nombreCientifico, nombreComercia
       <Text style={styles.text}>Lugares Vistos: {lugaresVistos}</Text>
       <Text style={styles.label}>Descripción:</Text>
       <Text style={styles.text}>{descripcion}</Text>
-      <TouchableOpacity onPress={volverAtras}>
-        <Text>Volver</Text> 
-      </TouchableOpacity>
     </View>
   );
 };
@@ -32,13 +22,11 @@ const DescripcionAve = ({ navigation, id, foto, nombreCientifico, nombreComercia
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0e0000',
+    backgroundColor: '#fff',
     padding: 20,
-    height: "auto",
-    width: "100%",
   },
   image: {
-    width: '50%',
+    width: '100%',
     height: 200,
     marginBottom: 10,
   },
