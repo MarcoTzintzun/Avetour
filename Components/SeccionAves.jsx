@@ -1,70 +1,100 @@
-import React, { useState } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import DescripcionAve from '../Screen/DescripcionAve'; // Importamos el componente de DescripcionAve
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { db } from "../config/firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 const SeccionAves = () => {
-  const [aveSeleccionada, setAveSeleccionada] = useState(null); // Estado para almacenar el ave seleccionada
+  const navigation = useNavigation();
+  const [aveSeleccionada, setAveSeleccionada] = useState(null);
+  const [Ave, setAve] = useState(null);
+  const [AveData, setAveData] = useState(null);
 
-  const avesData = [
-    { id: '1', nombre: 'No', descripcion: 'Descripción de No' },
-    { id: '7', nombre: 'Si', descripcion: 'Descripción de Si' },
-    { id: '8', nombre: 'Eyy', descripcion: 'Descripción de Eyy' },
-    { id: '2', nombre: 'Gorrion', descripcion: 'Descripción de Gorrion' },
-    { id: '3', nombre: 'Colibrí', descripcion: 'Descripción de Colibrí' },
-    { id: '4', nombre: 'Colibrí', descripcion: 'Descripción de Colibrí' },
-    { id: '5', nombre: 'Colibrí', descripcion: 'Descripción de Colibrí' },
-    { id: '6', nombre: 'Colibrí', descripcion: 'Descripción de Colibrí' },
-  ];
+  useEffect(() => {
+    const ey = async () => {
+      const collecctionRef = await getDocs(collection(db, "aves"));
+      if (!collecctionRef.empty) {
+        const A = collecctionRef.docs.map((doc) => doc.id);
+        const AD = collecctionRef.docs.map((doc) => doc.data());
+        setAve(A);
+        setAveData(AD);
+      }
+    };
+    ey();
+  }, []);
 
-  const renderItem = ({ item }) => (
-    console.log("Antes de TouchableOpacity"),
-    <TouchableOpacity onPress={() => setAveSeleccionada(item)}> 
+  const seleccionarAve = (ave) => {
+    setAveSeleccionada(ave);
+    navigation.navigate("DescripcionAve", { ave: ave });
+  };
+
+  const renderItem = ({ item, scientificName }) => (
+    <TouchableOpacity onPress={() => seleccionarAve(item)}>
       <View style={styles.item}>
         <MaterialCommunityIcons name="bird" size={24} color="#000" />
-        <Text style={styles.itemText}>{item.nombre}</Text>
+        <View style={styles.itemTextContainer}>
+          <Text style={styles.itemText}>{item}</Text>
+          <Text style={styles.itemSubText}>{scientificName}</Text>
+        </View>
       </View>
     </TouchableOpacity>
   );
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={avesData}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
-      {aveSeleccionada && <DescripcionAve {...aveSeleccionada} />}
-    </View>
+    <ScrollView contentContainerStyle={styles.container}>
+      {Ave &&
+        Ave.map((item, index) => {
+          const scientificName =
+            AveData && AveData[index] ? AveData[index].NombreCientífico : "";
+          return (
+            <View key={index} style={styles.itemContainer}>
+              {renderItem({ item, scientificName })}
+            </View>
+          );
+        })}
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    width: '90%', 
-    alignSelf: 'center', 
-    shadowColor: '#000', 
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 20,
-    borderRadius: 20, 
-    marginVertical: 10, 
+    backgroundColor: "#ffffff",
+    flexDirection: "column",
+    width: "100%",
+    height: "auto",
+    alignItems: "center",
   },
   item: {
-    backgroundColor: '#B7D3A2',
-    borderRadius: 20, 
-    flexDirection: 'row', 
-    alignItems: 'center', 
-    padding: 20,
+    backgroundColor: "#B7D3A2",
+    borderRadius: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 12,
     marginBottom: 10,
   },
+  itemContainer: {
+    width: "90%",
+    height: "auto",
+  },
+  itemTextContainer: {
+    marginLeft: 10,
+  },
   itemText: {
-    marginLeft: 10, 
+    fontWeight: "bold",
+    fontSize: 14,
+  },
+
+  itemSubText: {
+    fontSize: 11,
+    fontStyle: "italic",
+    color: "gray",
   },
 });
 

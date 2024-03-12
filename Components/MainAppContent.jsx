@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { View, Image, StyleSheet, TouchableOpacity, Text } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Ciudades from "./SeccionCiudades";
@@ -52,27 +51,26 @@ const MainAppContent = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image
-          source={require('../assets/bosque.jpeg')}
-          style={styles.image}
-        />
-      </View>
-      <View style={styles.container2}>
-        <View style={styles.arrowContainer}>
-          <TouchableOpacity onPress={goToPreviousImage}>
-            <Text style={styles.arrowText}>{"⤎"}</Text>
-          </TouchableOpacity>
-          <View style={styles.infoContainer}>
-            <Text style={styles.imageTitle}>{currentImage.title}</Text>
-            <Text style={styles.imageDescription}>
-              {currentImage.description}
-            </Text>
+    <>
+      <View style={styles.container}>
+        <View style={styles.imageContainer}>
+          <Image source={require("../assets/dia.jpg")} style={styles.image} />
+        </View>
+        <View style={styles.container2}>
+          <View style={styles.arrowContainer}>
+            <TouchableOpacity onPress={goToPreviousImage}>
+              <Text style={styles.arrowText}>{"⤎"}</Text>
+            </TouchableOpacity>
+            <View style={styles.infoContainer}>
+              <Text style={styles.imageTitle}>{currentImage.title}</Text>
+              <Text style={styles.imageDescription}>
+                {currentImage.description}
+              </Text>
+            </View>
+            <TouchableOpacity onPress={goToNextImage}>
+              <Text style={styles.arrowText}>{"⤏"}</Text>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={goToNextImage}>
-            <Text style={styles.arrowText}>{"⤏"}</Text>
-          </TouchableOpacity>
         </View>
       </View>
       <Tab.Navigator
@@ -102,13 +100,13 @@ const MainAppContent = () => {
         <Tab.Screen name="Camara" component={Camara} />
         <Tab.Screen name="Aves" component={Aves} />
       </Tab.Navigator>
-    </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 0.8,
     backgroundColor: "transparent",
     justifyContent: "center",
     alignItems: "center",
