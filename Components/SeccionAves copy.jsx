@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
+  ImageBackground,
+  FlatList,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -38,7 +40,11 @@ const SeccionAves = () => {
 
   const renderItem = ({ item, scientificName, imageURL }) => (
     <TouchableOpacity onPress={() => seleccionarAve(item)}>
-      <View style={styles.item}>
+      <ImageBackground
+        source={{ uri: imageURL }}
+        style={styles.item}
+        imageStyle={styles.itemBackgroundImage}
+      >
         {imageURL ? (
           <Image source={{ uri: imageURL }} style={styles.itemImage} />
         ) : (
@@ -48,7 +54,7 @@ const SeccionAves = () => {
           <Text style={styles.itemText}>{item}</Text>
           <Text style={styles.itemSubText}>{scientificName}</Text>
         </View>
-      </View>
+      </ImageBackground>
     </TouchableOpacity>
   );
 
@@ -77,6 +83,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "auto",
     alignItems: "center",
+    borderRadius: 20,
   },
   item: {
     backgroundColor: "#B7D3A2",
@@ -89,6 +96,7 @@ const styles = StyleSheet.create({
   itemContainer: {
     width: "90%",
     height: "auto",
+    borderRadius: 20,
   },
   itemTextContainer: {
     marginLeft: 10,
@@ -106,7 +114,7 @@ const styles = StyleSheet.create({
   itemImage: {
     width: 50,
     height: 50,
-    borderRadius: 15,
+    borderRadius: 11,
     marginRight: 10,
   },
 });
