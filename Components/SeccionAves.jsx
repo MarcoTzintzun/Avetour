@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Image,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -35,10 +36,13 @@ const SeccionAves = () => {
     navigation.navigate("DescripcionAve", { ave: ave });
   };
 
-  const renderItem = ({ item, scientificName }) => (
+  const renderItem = ({ item, scientificName, imageURL }) => (
     <TouchableOpacity onPress={() => seleccionarAve(item)}>
       <View style={styles.item}>
-        <MaterialCommunityIcons name="bird" size={24} color="#000" />
+      {imageURL ? ( 
+        <Image source={{ uri: imageURL }} style={styles.itemImage} />
+      ) :         <MaterialCommunityIcons name="bird" size={50} color="#000" />
+    }
         <View style={styles.itemTextContainer}>
           <Text style={styles.itemText}>{item}</Text>
           <Text style={styles.itemSubText}>{scientificName}</Text>
@@ -53,9 +57,11 @@ const SeccionAves = () => {
         Ave.map((item, index) => {
           const scientificName =
             AveData && AveData[index] ? AveData[index].NombreCientífico : "";
+          const imageURL =
+            AveData && AveData[index] ? AveData[index].Imagen : ""; 
           return (
             <View key={index} style={styles.itemContainer}>
-              {renderItem({ item, scientificName })}
+              {renderItem({ item, scientificName, imageURL })} 
             </View>
           );
         })}
@@ -95,6 +101,12 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontStyle: "italic",
     color: "gray",
+  },
+  itemImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 25, // Para hacer la imagen circular, ajusta el radio de la esquina
+    marginRight: 10,
   },
 });
 
