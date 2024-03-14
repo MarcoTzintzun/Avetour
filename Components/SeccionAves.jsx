@@ -19,6 +19,7 @@ const SeccionAves = () => {
   const [aveSeleccionada, setAveSeleccionada] = useState(null);
   const [Ave, setAve] = useState(null);
   const [AveData, setAveData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const ey = async () => {
@@ -28,6 +29,7 @@ const SeccionAves = () => {
         const AD = collecctionRef.docs.map((doc) => doc.data());
         setAve(A);
         setAveData(AD);
+        setLoading(false);
       }
     };
     ey();
@@ -38,45 +40,85 @@ const SeccionAves = () => {
     navigation.navigate("DescripcionAve", { ave: ave });
   };
 
+  if (loading) {
+    return (
+      <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.itemContainer}>
+          {[...Array(7)].map((_, index) => (
+            <ImageBackground
+              key={index}
+              source={require("../assets/Aves/1.jpg")}
+              style={styles.item}
+              imageStyle={styles.itemBackgroundImage}
+            >
+              <View
+                style={{
+                  backgroundColor: "#0000001c",
+                  borderRadius: 20,
+                  width: "100%",
+                  height: "auto",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  padding: 12,
+                }}
+              >
+                <View>
+                  <MaterialCommunityIcons name="bird" size={40} color="#fff" />
+                </View>
+                <View style={styles.itemTextContainer}>
+                  <Text style={styles.itemText}>####### ######</Text>
+                  <Text style={styles.itemSubText}>############</Text>
+                </View>
+              </View>
+            </ImageBackground>
+          ))}
+        </View>
+      </ScrollView>
+    );
+  }
+
   const renderItem = ({ item, scientificName, imageURL }) => (
     <TouchableOpacity onPress={() => seleccionarAve(item)}>
       <ImageBackground
-        source={{ uri: imageURL }}
+        source={
+          imageURL != "" ? { uri: imageURL } : require("../assets/Aves/1.jpg")
+        }
         style={styles.item}
         imageStyle={styles.itemBackgroundImage}
       >
         <View style={styles.item2}>
-        <View>
-          {imageURL != "" ? (
-            <Image source={{ uri: imageURL }} style={styles.itemImage} />
-          ) : (
-            <MaterialCommunityIcons name="bird" size={50} color="#000" />
-          )}
-        </View>
-        <View style={styles.itemTextContainer}>
-          <Text style={styles.itemText}>{item}</Text>
-          <Text style={styles.itemSubText}>{scientificName}</Text>
-        </View>
+          <View>
+            {imageURL != "" ? (
+              <Image source={{ uri: imageURL }} style={styles.itemImage} />
+            ) : (
+              <MaterialCommunityIcons name="bird" size={50} color="#000" />
+            )}
+          </View>
+          <View style={styles.itemTextContainer}>
+            <Text style={styles.itemText}>{item}</Text>
+            <Text style={styles.itemSubText}>{scientificName}</Text>
+          </View>
         </View>
       </ImageBackground>
     </TouchableOpacity>
   );
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      {Ave &&
-        Ave.map((item, index) => {
-          const scientificName =
-            AveData && AveData[index] ? AveData[index].NombreCientífico : "";
-          const imageURL =
-            AveData && AveData[index] ? AveData[index].Imagen : "";
-          return (
-            <View key={index} style={styles.itemContainer}>
-              {renderItem({ item, scientificName, imageURL })}
-            </View>
-          );
-        })}
-    </ScrollView>
+    <FlatList
+      data={Ave}
+      renderItem={({ item, index }) => {
+        const scientificName =
+          AveData && AveData[index] ? AveData[index].NombreCientífico : "";
+        const imageURL = AveData && AveData[index] ? AveData[index].Imagen : "";
+        return (
+          <View key={index} style={styles.itemContainer}>
+            {renderItem({ item, scientificName, imageURL })}
+          </View>
+        );
+      }}
+      keyExtractor={(item, index) => index.toString()}
+      contentContainerStyle={styles.container}
+    />
   );
 };
 
@@ -93,12 +135,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 10,
+    backgroundColor: "#009e3d76",
   },
   item2: {
-    backgroundColor: "#00000044",
+    backgroundColor: "#00000045",
     borderRadius: 20,
-    width:"100%",
-    height:"auto",
+    width: "100%",
+    height: "auto",
     flexDirection: "row",
     alignItems: "center",
     padding: 12,
@@ -110,7 +153,7 @@ const styles = StyleSheet.create({
   itemTextContainer: {
     marginLeft: 10,
     borderRadius: 50,
-    padding:15,
+    padding: 15,
   },
   itemText: {
     color: "#fff",

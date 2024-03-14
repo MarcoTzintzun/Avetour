@@ -106,13 +106,13 @@ const MainAppContent = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0.8,
+    flex: 0.4,
     backgroundColor: "transparent",
     justifyContent: "center",
     alignItems: "center",
   },
   container2: {
-    flex: 0.7,
+    flex: 1,
     backgroundColor: "transparent",
     justifyContent: "center",
     alignItems: "center",
