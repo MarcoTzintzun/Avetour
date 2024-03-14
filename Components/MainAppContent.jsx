@@ -96,9 +96,9 @@ const MainAppContent = () => {
           },
         })}
       >
-        <Tab.Screen name="Ciudades" component={Ciudades} />
-        <Tab.Screen name="Camara" component={Camara} />
         <Tab.Screen name="Aves" component={Aves} />
+        <Tab.Screen name="Camara" component={Camara} />
+        <Tab.Screen name="Ciudades" component={Ciudades} />
       </Tab.Navigator>
     </>
   );

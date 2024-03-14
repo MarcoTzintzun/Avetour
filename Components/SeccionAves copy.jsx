@@ -117,6 +117,12 @@ const styles = StyleSheet.create({
     borderRadius: 11,
     marginRight: 10,
   },
+  itemBackgroundImage: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
 
 export default SeccionAves;

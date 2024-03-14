@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
+  ImageBackground,
+  FlatList,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -38,17 +40,25 @@ const SeccionAves = () => {
 
   const renderItem = ({ item, scientificName, imageURL }) => (
     <TouchableOpacity onPress={() => seleccionarAve(item)}>
-      <View style={styles.item}>
-        {imageURL ? (
-          <Image source={{ uri: imageURL }} style={styles.itemImage} />
-        ) : (
-          <MaterialCommunityIcons name="bird" size={50} color="#000" />
-        )}
+      <ImageBackground
+        source={{ uri: imageURL }}
+        style={styles.item}
+        imageStyle={styles.itemBackgroundImage}
+      >
+        <View style={styles.item2}>
+        <View>
+          {imageURL != "" ? (
+            <Image source={{ uri: imageURL }} style={styles.itemImage} />
+          ) : (
+            <MaterialCommunityIcons name="bird" size={50} color="#000" />
+          )}
+        </View>
         <View style={styles.itemTextContainer}>
           <Text style={styles.itemText}>{item}</Text>
           <Text style={styles.itemSubText}>{scientificName}</Text>
         </View>
-      </View>
+        </View>
+      </ImageBackground>
     </TouchableOpacity>
   );
 
@@ -79,12 +89,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   item: {
-    backgroundColor: "#B7D3A2",
     borderRadius: 20,
     flexDirection: "row",
     alignItems: "center",
-    padding: 12,
     marginBottom: 10,
+  },
+  item2: {
+    backgroundColor: "#00000044",
+    borderRadius: 20,
+    width:"100%",
+    height:"auto",
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 12,
   },
   itemContainer: {
     width: "90%",
@@ -92,22 +109,29 @@ const styles = StyleSheet.create({
   },
   itemTextContainer: {
     marginLeft: 10,
+    borderRadius: 50,
+    padding:15,
   },
   itemText: {
+    color: "#fff",
     fontWeight: "bold",
     fontSize: 14,
   },
 
   itemSubText: {
+    color: "#d3d3d3",
     fontSize: 11,
     fontStyle: "italic",
-    color: "gray",
   },
   itemImage: {
     width: 50,
     height: 50,
     borderRadius: 15,
     marginRight: 10,
+  },
+  itemBackgroundImage: {
+    resizeMode: "cover",
+    borderRadius: 15,
   },
 });
 
