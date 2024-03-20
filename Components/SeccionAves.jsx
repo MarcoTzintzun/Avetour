@@ -35,9 +35,9 @@ const SeccionAves = () => {
     ey();
   }, []);
 
-  const seleccionarAve = (ave) => {
+  const seleccionarAve = (ave, aveData) => {
     setAveSeleccionada(ave);
-    navigation.navigate("DescripcionAve", { ave: ave });
+    navigation.navigate("DescripcionAve", { ave: ave, aveData: aveData });
   };
 
   if (loading) {
@@ -77,8 +77,8 @@ const SeccionAves = () => {
     );
   }
 
-  const renderItem = ({ item, scientificName, imageURL }) => (
-    <TouchableOpacity onPress={() => seleccionarAve(item)}>
+  const renderItem = ({ item, scientificName, imageURL, index }) => (
+    <TouchableOpacity onPress={() => seleccionarAve(item, AveData[index])}>
       <ImageBackground
         source={
           imageURL != "" ? { uri: imageURL } : require("../assets/Aves/1.jpg")
@@ -112,7 +112,7 @@ const SeccionAves = () => {
         const imageURL = AveData && AveData[index] ? AveData[index].Imagen : "";
         return (
           <View key={index} style={styles.itemContainer}>
-            {renderItem({ item, scientificName, imageURL })}
+            {renderItem({ item, scientificName, imageURL, index })}
           </View>
         );
       }}
