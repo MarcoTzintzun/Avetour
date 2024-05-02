@@ -1,12 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons"; // Importa el icono que desees usar
+import Map from "../Components/Map";
 
 const DescripcionAve = ({ route }) => {
   const { ave, aveData } = route.params;
-  console.log("ROUTE: ", route);
-  console.log("AVE: ", ave); //Nombre del Ave
-  console.log("AVEDATA: ", aveData); //Datos del ave
 
   return (
     <View style={styles.container}>
@@ -85,6 +83,8 @@ const DescripcionAve = ({ route }) => {
               <Text style={styles.label}> {"  "} Descripción: </Text>
               <Text style={styles.text}>{aveData.Descripcion}</Text>
             </Text>
+            <Text style={styles.TituloMap}>El ave fue vista o puede encontrarse en esta región:</Text>
+            <Map latitud={aveData.LatitudDecimal} longitud={aveData.LongitudDecimal} />
           </View>
         </View>
       </ScrollView>
@@ -141,6 +141,10 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 350,
     resizeMode: "cover",
+  },
+  TituloMap: {
+    fontSize: 20,
+    fontWeight: 'bold',
   },
 });
 
