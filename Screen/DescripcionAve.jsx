@@ -1,14 +1,27 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons"; // Importa el icono que desees usar
+import { useNavigation } from "@react-navigation/native";
+import Icon from 'react-native-vector-icons/Ionicons'; // Asegúrate de importar el icono desde la biblioteca que estés utilizando
 import Map from "../Components/Map";
 
 const DescripcionAve = ({ route }) => {
   const { ave, aveData } = route.params;
+  const navigation = useNavigation();
+
+  const onRegresarPress = () => {
+  navigation.navigate("MainAppContent");
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.imagenContainer}>
+      <TouchableOpacity
+        style={styles.regresarButton}
+        onPress={onRegresarPress}
+      >
+      <Icon name="arrow-back" size={20} color="black" />
+      </TouchableOpacity>
         <Image
           source={
             aveData.Imagen
@@ -109,10 +122,10 @@ const styles = StyleSheet.create({
   },
   overlayText: {
     width: "100%",
-    fontSize: 30, // Tamaño de letra grande
+    fontSize: 30,
     fontWeight: "900",
-    color: "white", // Color del texto
-    backgroundColor: "rgba(116, 116, 116, 0.342)", // Fondo semitransparente para el texto
+    color: "white",
+    backgroundColor: "rgba(116, 116, 116, 0.342)",
     paddingHorizontal: 30,
     paddingVertical: 20,
   },
@@ -137,6 +150,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "300",
   },
+  imagenContainer: {
+    position: 'relative',
+  },
   image: {
     width: "100%",
     height: 350,
@@ -145,6 +161,19 @@ const styles = StyleSheet.create({
   TituloMap: {
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  regresarButton: {
+    position: 'absolute',
+    top: 60,
+    left: 15,
+    zIndex: 1,
+    backgroundColor: 'rgba(255, 255, 255, 0)',
+    padding: 20,
+    borderRadius: 5,
+  },
+  regresarButtonText: {
+    fontSize: 16,
+    color: 'black',
   },
 });
 
