@@ -2,20 +2,20 @@
 
 ## **Descripción del Proyecto**
 
-Este proyecto de tesis consiste en una aplicación móvil innovadora desarrollada en \textbf{React Native} para el reconocimiento de aves. La aplicación está diseñada para facilitar la identificación de aves mediante el uso de técnicas avanzadas de \textbf{inteligencia artificial}.
+Este proyecto de tesis consiste en una aplicación móvil innovadora desarrollada en **React Native** para el reconocimiento de aves. La aplicación está diseñada para facilitar la identificación de aves mediante el uso de técnicas avanzadas de **inteligencia artificial**.
 
 ### **Características Principales**
 
-- \textbf{Reconocimiento de Aves}: Utiliza modelos de aprendizaje automático entrenados para identificar diferentes especies de aves a partir de imágenes.
-- \textbf{Interfaz Intuitiva}: Implementada con un diseño minimalista que proporciona una experiencia de usuario intuitiva y agradable.
-- \textbf{Funcionalidades Avanzadas}: Incluye características como un mapa interactivo, publicaciones, foros de discusión y notificaciones personalizadas para una experiencia de usuario completa.
+- **Reconocimiento de Aves**: Utiliza modelos de aprendizaje automático entrenados para identificar diferentes especies de aves a partir de imágenes.
+- **Interfaz Intuitiva**: Implementada con un diseño minimalista que proporciona una experiencia de usuario intuitiva y agradable.
+- **Funcionalidades Avanzadas**: Incluye características como un mapa interactivo, publicaciones, foros de discusión y notificaciones personalizadas para una experiencia de usuario completa.
 
 ### **Tecnologías Utilizadas**
 
-- \textbf{React Native}: Framework para el desarrollo de aplicaciones móviles multiplataforma.
-- \textbf{Google Colab}: Herramienta para el entrenamiento del modelo de reconocimiento de aves utilizando Python y técnicas avanzadas de machine learning.
-- \textbf{Firebase}: Backend para la gestión de datos y autenticación de usuarios.
-- \textbf{Git}: Control de versiones para una gestión eficiente del código fuente.
+- **React Native**: Framework para el desarrollo de aplicaciones móviles multiplataforma.
+- **Google Colab**: Herramienta para el entrenamiento del modelo de reconocimiento de aves utilizando Python y técnicas avanzadas de machine learning.
+- **Firebase**: Backend para la gestión de datos y autenticación de usuarios.
+- **Git**: Control de versiones para una gestión eficiente del código fuente.
 
 ### **Objetivo del Proyecto**
 
