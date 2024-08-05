@@ -37,7 +37,10 @@ const Restaurantes = () => {
 
   const seleccionarRestaurantes = (restaurante, restauranteData) => {
     setRestauranteSeleccionada(restaurante);
-    navigation.navigate("DescripcionRestaurante", { restaurante: restaurante, restauranteData: restauranteData });
+    navigation.navigate("DescripcionRestaurante", {
+      restaurante: restaurante,
+      restauranteData: restauranteData,
+    });
   };
 
   if (loading) {
@@ -77,11 +80,13 @@ const Restaurantes = () => {
     );
   }
 
-  const renderItem = ({ item, imageURL, index }) => (
-    <TouchableOpacity onPress={() => seleccionarRestaurantes(item, RestauranteData[index])}>
+  const renderItem = ({ item, ubi, imageURL, index }) => (
+    <TouchableOpacity
+      onPress={() => seleccionarRestaurantes(item, RestauranteData[index])}
+    >
       <ImageBackground
         source={
-          imageURL = require("../assets/Aves/2.jpg")
+          imageURL != "" ? { uri: imageURL } : require("../assets/Aves/1.jpg")
         }
         style={styles.item}
         imageStyle={styles.itemBackgroundImage}
@@ -96,6 +101,7 @@ const Restaurantes = () => {
           </View>
           <View style={styles.itemTextContainer}>
             <Text style={styles.itemText}>{item}</Text>
+            <Text style={styles.itemSubText}>{ubi}</Text>
           </View>
         </View>
       </ImageBackground>
@@ -106,10 +112,17 @@ const Restaurantes = () => {
     <FlatList
       data={Restaurante}
       renderItem={({ item, index }) => {
-        const imageURL = RestauranteData && RestauranteData[index] ? RestauranteData[index].Imagen : "";
+        const ubi =
+          RestauranteData && RestauranteData[index]
+            ? RestauranteData[index].Direccion
+            : "";
+        const imageURL =
+          RestauranteData && RestauranteData[index]
+            ? RestauranteData[index].Imagen
+            : "";
         return (
           <View key={index} style={styles.itemContainer}>
-            {renderItem({ item, imageURL, index })}
+            {renderItem({ item, ubi, imageURL, index })}
           </View>
         );
       }}
